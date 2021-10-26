@@ -2,32 +2,64 @@
 
 {% block content %}
 
-<div class="jumbotron">
-    <h1>Django</h1>
-    <p class="lead">Django is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+{%if user.is_authenticated%}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Welcome back {{user.get_username}}</h2>
+    </div>
+
+    <div class="col-md-12">
+        <h2>Games</h2>
+        <hr/>
+    </div>
+</div>
+
+{%if games is not None%}
+
+<div class="row">
+    {%for game in games%}
+    <div class="col-md-12">
+        <h4>{{game.name}}</h4>
+        <a href="/viewgame/{{game.id}}">View Game</a>
+    </div>
+    {%endfor%}
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Django gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <a class="btn btn-primary btn-lg" href="/viewgame">View All Games</a>
     </div>
 </div>
+
+
+
+{%else%}
+
+<div class="row">
+    <div class="col-md-12">
+        <p>You have not created any games yet.</p>
+    </div>
+</div>
+
+{%endif%}
+
+<hr/>
+<div class="row">
+    <div class="col-md-12">
+        <a href="/creategame" class="btn btn-primary btn-lg">Create Game</a>
+    </div>
+</div>
+
+{%else%}
+
+<h2>Welcome to Django Score Keeper</h2>
+
+<p>You are not logged in. Please log in to begin creating your scored or register a new account.</p>
+
+<a href="/login" class="btn btn-primary btn-lg">Log In</a>
+
+{%endif%}
+
 
 {% endblock %}

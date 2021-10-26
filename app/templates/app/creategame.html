@@ -1,0 +1,44 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <h2>Create Game</h2>
+    <hr/>
+</div>
+        <form method="post" action="/creategame/">
+            {%csrf_token%}
+            <div class="row">
+                <div class="col-md-6">
+                <label for="id_name">Game Name: </label><input type="text" name="name" required="" id="id_name" class="form-control" />
+                <label for="id_number_of_teams">Number of Teams: </label><input type="number" value="2" min="2" max="5" name="number_of_teams" required="" id="id_number_of_teams" class="form-control" onchange="ToggleTeams()" />
+            </div>
+            <div class="col-md-6">
+                <label for="id_date">Game Date: </label><input type="date" name="date" required="" id="id_date" class="form-control" />
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <label for="id_team_one_name">Team One Name: </label><input type="text" name="team_one_name" required="" id="id_team_one_name" class="form-control" />
+                <label for="id_team_two_name">Team Two Name: </label><input type="text" name="team_two_name" required="" id="id_team_two_name" class="form-control" />
+                <label for="id_team_three_name" class="team-three">Team Three Name: </label><input type="text" name="team_three_name" required="" id="id_team_three_name" class="form-control team-three" />
+                <label for="id_team_four_name" class="team-four">Team Four Name: </label><input type="text" name="team_four_name" required="" id="id_team_four_name" class="form-control team-four" />
+                <label for="id_team_five_name" class="team-five">Team Five Name: </label><input type="text" name="team_five_name" required="" id="id_team_five_name" class="form-control team-five" />
+
+            </div>
+            <div class="col-md-6">
+                <label for="id_team_one_score">Team One Score: </label><input type="number" name="team_one_score" required="" id="id_team_one_score" class="form-control" />
+                <label for="id_team_two_score">Team Two Score: </label><input type="number" name="team_two_score" required="" id="id_team_two_score" class="form-control" />
+                <label for="id_team_three_score" class="team-three">Team Three Score: </label><input type="number" name="team_three_score" required="" id="id_team_three_score" class="form-control team-three" />
+                <label for="id_team_four_score" class="team-four">Team Four Score: </label><input type="number" name="team_four_score" required="" id="id_team_four_score" class="form-control team-four" />
+                <label for="id_team_five_score" class="team-five">Team Five Score: </label><input type="number" name="team_five_score" required="" id="id_team_five_score" class="form-control team-five" />
+
+            </div>
+            </div>
+            
+            <hr />
+            <button type="submit" class="btn btn-lg btn-success">Create Game</button>
+        </form>
+
+
+{%endblock%}

@@ -40,3 +40,15 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.team-three{
+    display: none;
+}
+
+.team-four{
+    display: none;
+}
+
+.team-five{
+    display: none;
+}

@@ -3,9 +3,11 @@ Definition of views.
 """
 
 from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from .models import Score, Game, UserInfo
+from .forms import CreateGameForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     """Renders the home page."""
@@ -45,3 +47,26 @@ def about(request):
             'year':datetime.now().year,
         }
     )
+
+@login_required
+def creategame(request):
+    if request.method == 'POST':
+        form = CreateGameForm(request.POST)
+        if form.is_valid():
+            game = form.get_game()
+            scores = form.get_scores()
+            try:
+                game.game_user_info = UserInfo.objects.get(user_id = request.user.id)
+            except:
+                userinfo = UserInfo()
+                userinfo.user = request.user
+                userinfo.save()
+                game.game_user_info = userinfo
+            game.save()
+            for score in scores:
+                score.game = game
+                score.save()
+            games = Game.objects.filter(game_user_info_id = request.user.id)
+            return redirect('/', { 'games' : games })
+    form = CreateGameForm()
+    return render(request, 'app/creategame.html', { 'form' : form })

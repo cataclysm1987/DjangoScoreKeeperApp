@@ -1,0 +1,20 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Game Name: {{game.name}}</h2>
+        <h3>Date: {{game.date}}</h3>
+        <h3>Number of Teams: {{game.number_of_teams}}</h3>
+    </div>
+
+    <hr />
+    {%for score in scores%}
+    <div class="col-md-6">
+        <p>Team Name: {{score.name}} - Score: {{score.score}}</p>
+    </div>
+    {%endfor%}
+</div>
+
+{%endblock%}

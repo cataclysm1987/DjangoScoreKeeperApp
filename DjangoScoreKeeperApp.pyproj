@@ -57,6 +57,7 @@
   <ItemGroup>
     <Content Include="app\static\app\scripts\scripts.js" />
     <Content Include="app\templates\app\creategame.html" />
+    <Content Include="app\templates\app\viewgame.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

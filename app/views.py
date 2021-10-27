@@ -70,3 +70,15 @@ def creategame(request):
             return redirect('/', { 'games' : games })
     form = CreateGameForm()
     return render(request, 'app/creategame.html', { 'form' : form })
+
+@login_required
+def viewgame(request, id):
+    game = Game.objects.get(id = id)
+    if game.game_user_info_id != request.user.id:
+        games = Game.objects.filter(game_user_info_id=request.user.id).order_by('-date')[:10]
+        if len(games) > 0:
+            return render(request, 'app/index.html', {'games': games} )
+        return render(request, 'app/index.html', {'games' : None })
+    if game is not None:
+        scores = Score.objects.filter(game_id = game.id)
+        return render(request, 'app/viewgame.html', { 'game': game, 'scores': scores })

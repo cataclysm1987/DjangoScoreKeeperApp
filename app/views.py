@@ -8,6 +8,9 @@ from django.http import HttpRequest
 from .models import Score, Game, UserInfo
 from .forms import CreateGameForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+from django.core.paginator import Paginator
+
 
 def home(request):
     """Renders the home page."""
@@ -21,19 +24,6 @@ def home(request):
         except:
             return render(request, 'app/index.html', {'games' : None })
     return render(request, 'app/index.html')
-
-def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/contact.html',
-        {
-            'title':'Contact',
-            'message':'Your contact page.',
-            'year':datetime.now().year,
-        }
-    )
 
 def about(request):
     """Renders the about page."""
@@ -82,3 +72,16 @@ def viewgame(request, id):
     if game is not None:
         scores = Score.objects.filter(game_id = game.id)
         return render(request, 'app/viewgame.html', { 'game': game, 'scores': scores })
+
+@login_required
+def viewgames(request):
+    game_list = Game.objects.all()
+    paginator = Paginator(game_list, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'app/viewgames.html', {'page_obj': page_obj})
+
+class GameListView(ListView):
+    paginate_by = 2
+    model = Game

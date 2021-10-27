@@ -11,7 +11,6 @@ from app import forms, views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('login/',
          LoginView.as_view
@@ -28,5 +27,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
     path('creategame/', views.creategame),
-    path('viewgame/<int:id>', views.viewgame)
+    path('viewgame/<int:id>', views.viewgame),
+    path('viewgames/', views.viewgames)
 ]
